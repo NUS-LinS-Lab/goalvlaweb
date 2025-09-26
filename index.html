@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GOVLA: Image-Generative VLMs as Object-Centric World Models Enable Zero-shot Robot Manipulation</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="Anonymous">
+    <!-- <meta name="description" content=""> -->
+    <meta name="viewport" content="width=1200px, initial-scale=0.8, maximum-scale=2.0, user-scalable=yes">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="icon" href="./static/data/go_icon.png">
+
+    <!-- Custom CSS Variables for Width Control -->
+    <style>
+      :root {
+        --main-content-width: 90%;
+        --abstract-content-width: 70%;
+      }
+      
+      /* Custom select box styling */
+      .custom-select {
+        width: 60% !important;
+        margin: 0 auto;
+      }
+      
+      .custom-select .select {
+        border-radius: 25px !important;
+      }
+      
+      .custom-select select {
+        border-radius: 25px !important;
+        border: 2px solid #dbdbdb !important;
+        background-color: white !important;
+      }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+
+    <!-- MathJax -->
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>        
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      });
+    </script>
+
+    <!-- visitor statistics -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <!-- model-viewer -->
+    <!-- <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script> -->
+  </head>
+
+
+  <body>
+    <!-- Title -->
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-widescreen">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title"
+                  style="width: var(--main-content-width); margin:0 auto;">
+                  GOVLA: Image-Generative VLMs as Object-Centric World Models Enable Zero-shot Robot Manipulation
+              </h1>
+              <br>
+              <div class="is-size-5 publication-authors">
+                <div>
+                  Anonymous
+                </div>
+              </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <!-- PDF Link -->
+                  <!-- <span class="link-block">
+                    <a href="#" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="ai ai-arxiv"></i>
+                      </span>
+                      <span>arXiv</span>
+                    </a>
+                  </span> -->
+                  <span class="link-block">
+                    <a href="/static/data/GOVLA_paper_anonymous.pdf" class="external-link button is-normal is-rounded is-dark" target="_blank"> 
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Paper</span>
+                    </a>
+                  </span>
+                  <!-- <span class="link-block">
+                    <a href="#" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Appendix</span>
+                    </a>
+                  </span> -->
+
+                  <!-- Code Link -->
+                  <span class="link-block">
+                    <a href="#" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-code"></i>
+                      </span>
+                      <span>Code (Coming Soon)</span>
+                    </a>
+                  </span>
+
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intro Video -->
+    <section class="hero teaser">
+            <div class="container is-fullhd">
+        <div class="hero-body" style="width: var(--main-content-width); margin:0 auto;">
+          <video id="intro" controls playsinline height="100%">
+            <source src="./static/data/govla_supp.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </section>
+    <!--/ Intro Video -->
+
+    <section class="section">
+      <div class="container is-widescreen">
+        <!-- Abstract -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-max-desktop">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified"
+            style="width: 70%; margin:0 auto;">
+              <p>
+                Generalization remains a fundamental challenge in robotic manipulation.  
+                To tackle this challenge, recent Vision-Language-Action (VLA) models build policies on top of Vision-Language Models (VLMs), seeking to transfer their open-world semantic knowledge. However, their zero-shot capability lags significantly behind the base VLMs, as the instruction-vision-action data is too limited to cover diverse scenarios, tasks, and robot embodiments.
+                In this work, we present <b>GOVLA</b>, a zero-shot framework that leverages Image-Generative VLMs as world models to generate desired goal states, from which the target object pose is derived to enable generalizable manipulation. The key insight is that object state representation is the golden interface, naturally separating a manipulation system into high-level and low-level policies. This representation abstracts away explicit action annotations, allowing the use of highly generalizable VLMs while simultaneously providing spatial cues for training-free low-level control.
+                To further improve robustness, we introduce a Reflection-through-Synthesis process that iteratively validates and refines the generated goal image before execution.
+                Both simulated and real-world experiments demonstrate that our <b>GOVLA</b> achieves strong performance and inspiring generalizability in manipulation tasks.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--/ Abstract -->
+
+        <br>
+
+        <!-- Overview -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full">
+            <h2 class="title is-3">Framework Overview</h2>
+            <div class="content has-text-justified" style="width: var(--main-content-width); margin:0 auto;">
+              <figure>
+                <img src="/static/data/overview.png" alt="Overview of GOVLA" style="max-width: 100%;">
+                <figcaption style="font-style: normal; font-size: 0.95em; text-align: left;"> 
+                  Overview of the <b>GOVLA</b> framework, which decouples the manipulation pipeline into three stages:
+                    <b style="color: #2893b1">(a) Goal State Reasoning:</b> A VLM generates a goal image from instructions and refines it for task feasibility, yielding a validated goal with image, mask, and depth.
+                    <b style="color: #f79332">(b) Spatial Grounding:</b> The object's transformation is computed by feature matching and point cloud registration between the initial and goal states.
+                    <b style="color: #4eaf95">(c) Low-level Policy:</b> The gripper's goal pose is derived by applying the object's transformation to a contact pose, after which a motion planner generates the final trajectory for robot execution.
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+        <!--/ Overview -->
+
+        <br>
+
+        <!-- Experiments Demo -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full">
+            <h2 class="title is-3">Real-world Experiments (1x)</h2>
+            <div class="content" style="width: var(--main-content-width); margin:0 auto;">
+                <h3 class="title is-5" style="color: #FF0000">All experiments are conducted in a zero-shot setting,
+without any task-specific or additional training.​</h3>
+              <div class="columns">
+                <!-- Left side: Video -->
+                <div class="column is-half">
+                  <h3 class="title is-5">Select Experiment</h3>
+                  <div class="column has-text-centered">
+                    <div class="select is-rounded">
+                      <select id="video-selector">
+                        <option value="tomato" selected="selected">Tomato Placement</option>
+                        <option value="sweep">Table Sweeping</option>
+                        <option value="duck">Duck Weighing</option>
+                        <option value="bottle">Bottle Stand-Up</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="video-container" style="margin-top: 20px;">
+                    <video id="demo-video" controls autoplay muted loop playsinline width="100%">
+                      <source src="./static/data/real_world/tomato/video.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+                
+                <!-- Right side: Goal Image/Transformation -->
+                <div class="column is-half">
+                  <h3 class="title is-5">Goal Visualization</h3>
+                  <div class="column has-text-centered">
+                    <div class="select is-rounded">
+                      <select id="display-selector">
+                        <option value="goal" selected="selected">Goal Image</option>
+                        <option value="transformation">Transformation</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="display-container" style="margin-top: 20px;">
+                    <div id="goal-display">
+                      <img id="goal-image" src="./static/data/real_world/tomato/rgb_goal.png" alt="Goal Image" style="max-width: 100%; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    <div id="transformation-display" style="display: none;">
+                      <img id="transformation-image" src="./static/data/real_world/tomato/trans.png" alt="Transformation" style="max-width: 100%; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/ Experiments Demo -->
+      </div>
+    </section>
+
+    <script>
+      // Demo control scripts
+      const videoSelector = document.getElementById('video-selector');
+      const displaySelector = document.getElementById('display-selector');
+      const demoVideo = document.getElementById('demo-video');
+      const goalImage = document.getElementById('goal-image');
+      const transformationImage = document.getElementById('transformation-image');
+      const goalDisplay = document.getElementById('goal-display');
+      const transformationDisplay = document.getElementById('transformation-display');
+
+      // Video and image mappings
+      const experimentData = {
+        'tomato': {
+          video: './static/data/real_world/tomato/video.mp4',
+          goal: './static/data/real_world/tomato/rgb_goal.png',
+          transformation: './static/data/real_world/tomato/trans.png'
+        },
+        'sweep': {
+          video: './static/data/real_world/sweep/video.mp4',
+          goal: './static/data/real_world/sweep/rgb_goal.png',
+          transformation: './static/data/real_world/sweep/trans.png'
+        },
+        'duck': {
+          video: './static/data/real_world/duck/video.mp4',
+          goal: './static/data/real_world/duck/rgb_goal.png',
+          transformation: './static/data/real_world/duck/trans.png'
+        },
+        'bottle': {
+          video: './static/data/real_world/bottle/video.mp4',
+          goal: './static/data/real_world/bottle/rgb_goal.png',
+          transformation: './static/data/real_world/bottle/trans.png'
+        },
+      };
+
+      // Update video when selection changes
+      videoSelector.addEventListener('change', function() {
+        const selected = this.value;
+        const data = experimentData[selected];
+        demoVideo.src = data.video;
+        goalImage.src = data.goal;
+        transformationImage.src = data.transformation;
+        
+        // Auto play the new video
+        demoVideo.load();
+        demoVideo.play().catch(e => console.log('Auto-play was prevented'));
+      });
+
+      // Toggle display mode
+      displaySelector.addEventListener('change', function() {
+        if (this.value === 'goal') {
+          goalDisplay.style.display = 'block';
+          transformationDisplay.style.display = 'none';
+        } else {
+          goalDisplay.style.display = 'none';
+          transformationDisplay.style.display = 'block';
+        }
+      });
+    </script>
+
+    <!-- BibTex -->
+    <!-- <section class="section" id="BibTeX">
+      TODO
+    </section> -->
+    <!--/ BibTex -->
+
+    <!-- Footer -->
+    <footer class="footer", style="padding: 40px 0;">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content">
+              <p style="text-align: center;">
+                This website is designed based on
+                <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+                <br>
+                Thanks for your visiting😊!
+                <span id="busuanzi_container_site_pv">
+                  Total Page Views: <span id="busuanzi_value_site_pv"></span>
+                </span>
+                <br>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!--/ Footer -->
+
+  </body>
+</html>
